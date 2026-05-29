@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>CS 1.6 Online — Играй в браузере</title>
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0a0c10;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Фон */
+  .bg {
+    position: fixed;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1350&q=80')
+      center/cover no-repeat;
+    filter: brightness(0.35) blur(2px);
+    z-index: -1;
+    animation: breathe 8s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0% { filter: brightness(0.35) blur(2px); }
+    50% { filter: brightness(0.45) blur(3px); }
+    100% { filter: brightness(0.35) blur(2px); }
+  }
+
+  header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .logo {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffcc00;
+    text-shadow: 0 0 12px #ffcc00, 0 0 24px #ff8800;
+    transition: 0.3s;
+  }
+  .logo:hover {
+    text-shadow: 0 0 18px #ffd000, 0 0 36px #ff9900;
+  }
+
+  nav span {
+    margin-left: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.2s;
+  }
+  nav span:hover {opacity: 1;}
+
+  .hero {
+    text-align: center;
+    padding: 120px 20px 80px;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    text-shadow: 0 0 20px #000;
+  }
+
+  .hero p {
+    margin-top: 12px;
+    font-size: 18px;
+    opacity: 0.85;
+  }
+
+  .btn {
+    margin-top: 32px;
+    padding: 16px 42px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ffcc00, #ff8800);
+    color: #000;
+    box-shadow: 0 0 25px rgba(255,180,0,0.6);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 35px rgba(255,180,0,0.9);
+  }
+
+  /* Плавное появление */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .game-frame {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: 0.5s ease;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: #000;
+    display: none;
+  }
+
+  .game-frame.active {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  iframe {width:100%; height:100%; border:none;}
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.5;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<header class="fade-in">
+  <div class="logo">CS 1.6 ONLINE</div>
+  <nav>
+    <span>Сервера</span>
+    <span>Настройки</span>
+    <span>О проекте</span>
+  </nav>
+</header>
+
+<section class="hero fade-in">
+  <h1>Counter‑Strike 1.6 прямо в браузере</h1>
+  <p>Запускай классику без скачивания. Быстро. Красиво. Удобно.</p>
+  <button class="btn" id="playBtn">Играть</button>
+</section>
+
+<div class="game-frame" id="gameFrameBox">
+  <iframe id="gameFrame" src=""></iframe>
+</div>
+
+<footer class="fade-in">
+  Фан‑проект. Counter‑Strike принадлежит своим правообладателям.
+</footer>
+
+<script>
+  const btn = document.getElementById('playBtn');
+  const box = document.getElementById('gameFrameBox');
+  const frame = document.getElementById('gameFrame');
+
+  btn.onclick = () => {
+    frame.src = "https://example.com/cs16"; // ← сюда вставь ссылку на игру
+    box.classList.add("active");
+    btn.style.display = "none";
+  };
+</script>
+
+</body>
+</html>
